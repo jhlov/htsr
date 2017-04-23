@@ -115,3 +115,21 @@ def get_new_rating(player_a, player_b, player_a_score):
 # 예상 승수
 def get_expect_score(player_a, player_b):
     return 1 / (1 + pow(10, (player_b.rating - player_a.rating) / 400))
+
+
+# 결과 페이지
+def result(request):
+
+    # 싱글
+    singles = Result.objects.filter(is_single=True).order_by('-play_date')
+
+    # 더블
+    doubles = Result.objects.filter(is_single=False).order_by('-play_date')
+
+    data = {
+        'singles': singles,
+        'doubles': doubles,
+    }
+
+    return render(request, 'result.html', data)
+

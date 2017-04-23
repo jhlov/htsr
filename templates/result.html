@@ -1,0 +1,44 @@
+{% extends 'header.html' %}
+
+{% block content %}
+    <div style="max-width: 600px; margin: 0 auto;">
+        <h2>Result</h2>
+
+
+        <h3>Singles</h3>
+        <table class="table table-striped">
+            <tr>
+                <td class="col-md-3">날짜</td>
+                <td class="col-md-2">이름</td>
+                <td class="col-md-2">점수</td>
+                <td class="col-md-2">이름</td>
+            </tr>
+            {% for result in singles %}
+                <tr>
+                    <td>{{ result.play_date }}</td>
+                    <td><label style="background:blue">&nbsp;&nbsp;</label> {{ result.blue_name }}</td>
+                    <td>{{ result.blue_score }} : {{ result.red_score }}</td>
+                    <td><label style="background:red">&nbsp;&nbsp;</label> {{ result.red_name }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+
+        <h3>Doubles</h3>
+        <table class="table table-striped">
+            <tr>
+                <td class="col-md-3">날짜</td>
+                <td class="col-md-2">이름</td>
+                <td class="col-md-2">점수</td>
+                <td class="col-md-2">이름</td>
+            </tr>
+            {% for result in doubles %}
+                <tr>
+                    <td>{{ result.play_date }}</td>
+                    <td><label style="background:blue">&nbsp;&nbsp;</label> {{ result.blue_name }}</td>
+                    <td>{{ result.blue_score }} : {{ result.red_score }}</td>
+                    <td><label style="background:red">&nbsp;&nbsp;</label> {{ result.red_name }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

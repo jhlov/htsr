@@ -37,3 +37,23 @@ class Result(models.Model):
     is_single = models.BooleanField('싱글플레이 여부', db_index=True)
     blue_rating_delta = models.IntegerField('블루 점수 변동')
     red_rating_delta = models.IntegerField('레드 점수 변동')
+
+    @property
+    def blue_name(self):
+        player = Player.objects.get(id=self.blue_player)
+        if self.is_single:
+            return player.name
+        else:
+            player1 = Player.objects.get(id=player.player_1)
+            player2 = Player.objects.get(id=player.player_2)
+            return player1.name + ',' + player2.name
+
+    @property
+    def red_name(self):
+        player = Player.objects.get(id=self.red_player)
+        if self.is_single:
+            return player.name
+        else:
+            player1 = Player.objects.get(id=player.player_1)
+            player2 = Player.objects.get(id=player.player_2)
+            return player1.name + ',' + player2.name
