@@ -1,0 +1,54 @@
+{% extends 'header.html' %}
+
+{% load humanize %}
+
+{% block content %}
+
+    <br>
+    <div class="table-responsive" style="max-width: 600px; margin: 0 auto;">
+        <h2>Singles</h2>
+        <table class="table table-striped">
+            <tr>
+                <td>순위</td>
+                <td>이름</td>
+                <td>승</td>
+                <td>패</td>
+                <td>Rating</td>
+            </tr>
+
+            {% for player in singles %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ player.name }}</td>
+                    <td>{{ player.win }}</td>
+                    <td>{{ player.lose }}</td>
+                    <td>{{ player.rating|intcomma }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <br>
+    <div class="table-responsive" style="max-width: 600px; margin: 0 auto;">
+        <h2>Doubles</h2>
+        <table class="table table-striped">
+            <tr>
+                <td>순위</td>
+                <td>이름</td>
+                <td>승</td>
+                <td>패</td>
+                <td>Rating</td>
+            </tr>
+            {% for player in doubles %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ player.name }}</td>
+                    <td>{{ player.win }}</td>
+                    <td>{{ player.lose }}</td>
+                    <td>{{ player.rating|intcomma }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+{% endblock %}
