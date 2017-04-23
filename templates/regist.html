@@ -1,0 +1,81 @@
+{% extends 'header.html' %}
+
+{% block content %}
+    <div style="max-width: 600px; margin: 0 auto;">
+
+        <h3>Singles</h3>
+        <form class="form-inline" action="{% url 'regist_single' %}" method="post">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label style="background:blue">&nbsp;&nbsp;</label>
+                <select class="form-control" id="blue_player" name="blue_player">
+                    {% for player in players %}
+                    <option value="{{ player.id }}">{{ player.name }}</option>
+                    {% endfor %}
+                </select>
+                <select class="form-control" id="blue_score" name="blue_score">
+                    {% for i in range %}
+                    <option value="{{ i }}">{{ i }}</option>
+                    {% endfor %}
+                </select>
+                :
+                <select class="form-control" id="red_score" name="red_score">
+                    {% for i in range %}
+                    <option value="{{ i }}">{{ i }}</option>
+                    {% endfor %}
+                </select>
+                <select class="form-control" id="red_player" name="red_player">
+                    {% for player in players %}
+                    <option value="{{ player.id }}">{{ player.name }}</option>
+                    {% endfor %}
+                </select>
+                <label style="background:red">&nbsp;&nbsp;</label>
+                <button type="submit" class="btn btn-default">등록</button>
+            </div>
+
+
+
+        </form>
+
+        <br>
+        <h3>Doubles</h3>
+        <form class="form-inline">
+            <div class="form-group">
+                <label style="background:blue">&nbsp;&nbsp;</label>
+                <select class="form-control">
+                    <option>최재현</option>
+                    <option>조건희</option>
+                </select>
+                <select class="form-control">
+                    <option>최재현</option>
+                    <option>조건희</option>
+                </select>
+                <select class="form-control">
+                    <option>0</option>
+                    <option>1</option>
+                    <option>2</option>
+                </select>
+                :
+                <select class="form-control">
+                    <option>0</option>
+                    <option>1</option>
+                    <option>2</option>
+                </select>
+                <select class="form-control">
+                    <option>최재현</option>
+                    <option>조건희</option>
+                </select>
+                <select class="form-control">
+                    <option>최재현</option>
+                    <option>조건희</option>
+                </select>
+                <label style="background:red">&nbsp;&nbsp;</label>
+                <button type="submit" class="btn btn-default">등록</button>
+            </div>
+        </form>
+
+    </div>
+{% endblock %}
+
+

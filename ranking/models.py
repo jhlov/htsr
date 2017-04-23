@@ -5,7 +5,7 @@ from django.db import models
 
 # 플레이어
 class Player(models.Model):
-    name = models.CharField('이름', max_length=30, db_index=True)
+    name = models.CharField('이름', max_length=30, db_index=True, unique=True)
     win = models.IntegerField('승', default=0)
     lose = models.IntegerField('패', default=0)
     rating = models.IntegerField('레이팅', default=0, db_index=True)
@@ -16,8 +16,8 @@ class Player(models.Model):
 
 # 복식 랭킹을 위한 모델
 class DoublesPlayer(models.Model):
-    player_1 = models.ForeignKey('Player', related_name='player_1')
-    player_2 = models.ForeignKey('Player', related_name='player_2')
+    player_1 = models.IntegerField('Player 1')
+    player_2 = models.IntegerField('Player 2')
     win = models.IntegerField('승', default=0)
     lose = models.IntegerField('패', default=0)
     rating = models.IntegerField('레이팅', default=0, db_index=True)
@@ -29,7 +29,7 @@ class DoublesPlayer(models.Model):
 # 경기 결과
 class Result(models.Model):
     regist_date = models.DateTimeField('등록 시간', auto_now=True)
-    play_date = models.DateTimeField('경기 시간', db_index=True)
+    play_date = models.DateTimeField('경기 시간', auto_now=True, db_index=True)
     blue_player = models.IntegerField('블루 플레이어 id', db_index=True)
     red_player = models.IntegerField('레드 플레이어 id', db_index=True)
     blue_score = models.IntegerField('블루 점수')
