@@ -16,11 +16,17 @@ class Player(models.Model):
 
 # 복식 랭킹을 위한 모델
 class DoublesPlayer(models.Model):
-    player_1 = models.IntegerField('Player 1')
-    player_2 = models.IntegerField('Player 2')
+    player_1 = models.IntegerField('Player 1', db_index=True)
+    player_2 = models.IntegerField('Player 2', db_index=True)
     win = models.IntegerField('승', default=0)
     lose = models.IntegerField('패', default=0)
     rating = models.IntegerField('레이팅', default=0, db_index=True)
+
+    @property
+    def name(self):
+        player1 = Player.objects.get(id=self.player_1)
+        player2 = Player.objects.get(id=self.player_2)
+        return player1.name + ',' + player2.name
 
     def __unicode__(self):
         return '{0} {1}'.format(self.player_1, self.player_2)
@@ -40,20 +46,18 @@ class Result(models.Model):
 
     @property
     def blue_name(self):
-        player = Player.objects.get(id=self.blue_player)
         if self.is_single:
+            player = Player.objects.get(id=self.blue_player)
             return player.name
         else:
-            player1 = Player.objects.get(id=player.player_1)
-            player2 = Player.objects.get(id=player.player_2)
-            return player1.name + ',' + player2.name
+            player = DoublesPlayer.objects.get(id=self.blue_player)
+            return player.name
 
     @property
     def red_name(self):
-        player = Player.objects.get(id=self.red_player)
         if self.is_single:
+            player = Player.objects.get(id=self.red_player)
             return player.name
         else:
-            player1 = Player.objects.get(id=player.player_1)
-            player2 = Player.objects.get(id=player.player_2)
-            return player1.name + ',' + player2.name
+            player = DoublesPlayer.objects.get(id=self.red_player)
+            return player.name

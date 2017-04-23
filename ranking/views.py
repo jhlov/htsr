@@ -21,7 +21,7 @@ def ranking(request):
     singles = Player.objects.filter(Q(win__gt=0) | Q(lose__gt=0)).order_by('-rating')
 
     # 더블 랭킹
-    doubles = DoublesPlayer.objects.all().order_by('rating')
+    doubles = DoublesPlayer.objects.all().order_by('-rating')
 
     data = {
         'singles': singles,
@@ -63,9 +63,7 @@ def regist_single(request):
         red_player = Player.objects.get(id=int(post['red_player']))
 
         blue_new_rating = get_new_rating(blue_player, red_player, blue_score > red_score)
-        print blue_new_rating
         red_new_rating = get_new_rating(red_player, blue_player, red_score > blue_score)
-        print red_new_rating
 
         # 경기 기록
         r = Result.objects.create(
@@ -97,6 +95,77 @@ def regist_single(request):
         return HttpResponse("success")
 
     return HttpResponse("error")
+
+
+# 더블 기록 등록
+def regist_double(request):
+
+    if request.method == 'POST':
+        post = request.POST.copy()
+
+        # 에러체크
+        # 선수 이름이 달라야 함
+        if post['blue_player_1'] == post['blue_player_2'] or \
+            post['blue_player_1'] == post['red_player_1'] or \
+            post['blue_player_1'] == post['red_player_2'] or \
+            post['blue_player_2'] == post['red_player_1'] or \
+            post['blue_player_2'] == post['red_player_2'] or \
+            post['red_player_1'] == post['red_player_2']:
+            return HttpResponse("error : 선수가 동일합니다.")
+
+
+        # 한쪽이 10점이 되어야 함
+        blue_score = int(post['blue_score'])
+        red_score = int(post['red_score'])
+        if blue_score < 10 and red_score < 10:
+            return HttpResponse("error : 점수가 잘 못 되었습니다.")
+
+        if blue_score == 10 and red_score == 10:
+            return HttpResponse("error : 점수가 잘 못 되었습니다. (1)")
+
+        blue_player = get_double_player(int(post['blue_player_1']), int(post['blue_player_2']))
+        red_player = get_double_player(int(post['red_player_1']), int(post['red_player_2']))
+
+        blue_new_rating = get_new_rating(blue_player, red_player, blue_score > red_score)
+        red_new_rating = get_new_rating(red_player, blue_player, red_score > blue_score)
+
+        # 경기 기록
+        r = Result.objects.create(
+            blue_player=blue_player.id,
+            red_player=red_player.id,
+            blue_score=blue_score,
+            red_score=red_score,
+            is_single=False,
+            blue_rating_delta=(blue_new_rating - blue_player.rating),
+            red_rating_delta=(red_new_rating - red_player.rating))
+
+        r.save()
+
+        # 레이팅 갱신
+        blue_player.rating = blue_new_rating
+        if blue_score > red_score:
+            blue_player.win = blue_player.win + 1
+        else:
+            blue_player.lose = blue_player.lose + 1
+        blue_player.save()
+
+        red_player.rating = red_new_rating
+        if blue_score < red_score:
+            red_player.win = red_player.win + 1
+        else:
+            red_player.lose = red_player.lose + 1
+        red_player.save()
+
+        return HttpResponse("success")
+
+    return HttpResponse("error")
+
+
+def get_double_player(player_1, player_2):
+    id_1 = min(player_1, player_2)
+    id_2 = max(player_1, player_2)
+    player = DoublesPlayer.objects.get_or_create(player_1=id_1, player_2=id_2)
+    return player[0]
 
 
 # 새로운 레이팅 계산
