@@ -8,7 +8,7 @@ class Player(models.Model):
     name = models.CharField('이름', max_length=30, db_index=True, unique=True)
     win = models.IntegerField('승', default=0)
     lose = models.IntegerField('패', default=0)
-    rating = models.IntegerField('레이팅', default=0, db_index=True)
+    rating = models.FloatField('레이팅', default=1000., db_index=True)
 
     def __unicode__(self):
         return self.name
@@ -20,7 +20,7 @@ class DoublesPlayer(models.Model):
     player_2 = models.IntegerField('Player 2', db_index=True)
     win = models.IntegerField('승', default=0)
     lose = models.IntegerField('패', default=0)
-    rating = models.IntegerField('레이팅', default=0, db_index=True)
+    rating = models.FloatField('레이팅', default=1000., db_index=True)
 
     @property
     def name(self):

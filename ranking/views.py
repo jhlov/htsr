@@ -34,7 +34,7 @@ def ranking(request):
 # 점수 등록 페이지
 def regist(request):
 
-    players = Player.objects.all()
+    players = Player.objects.order_by('-win')
     return render(request, 'regist.html', {'players': players, 'range': range(11)})
 
 
@@ -176,14 +176,14 @@ def get_new_rating(player_a, player_b, player_a_score):
     expect_score = get_expect_score(player_a, player_b)
 
     # 레이팅
-    new_rating = player_a.rating + 16 * (player_a_score - expect_score)
+    new_rating = player_a.rating + 5. * (player_a_score - expect_score)
 
     return new_rating
 
 
 # 예상 승수
 def get_expect_score(player_a, player_b):
-    return 1 / (1 + pow(10, (player_b.rating - player_a.rating) / 400))
+    return 10. / (1. + pow(10., (player_b.rating - player_a.rating) / 400.))
 
 
 # 결과 페이지
@@ -202,3 +202,6 @@ def result(request):
 
     return render(request, 'result.html', data)
 
+
+def video(request):
+    return render(request, 'video.html')
