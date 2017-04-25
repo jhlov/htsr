@@ -10,6 +10,10 @@ class Player(models.Model):
     lose = models.IntegerField('패', default=0)
     rating = models.FloatField('레이팅', default=1000., db_index=True)
 
+    @property
+    def rating_int(self):
+        return int(self.rating)
+
     def __unicode__(self):
         return self.name
 
@@ -28,6 +32,10 @@ class DoublesPlayer(models.Model):
         player2 = Player.objects.get(id=self.player_2)
         return player1.name + ',' + player2.name
 
+    @property
+    def rating_int(self):
+        return int(self.rating)
+
     def __unicode__(self):
         return '{0} {1}'.format(self.player_1, self.player_2)
 
@@ -35,14 +43,16 @@ class DoublesPlayer(models.Model):
 # 경기 결과
 class Result(models.Model):
     regist_date = models.DateTimeField('등록 시간', auto_now=True)
-    play_date = models.DateTimeField('경기 시간', auto_now=True, db_index=True)
+    play_date = models.DateTimeField('경기 시간', db_index=True)
     blue_player = models.IntegerField('블루 플레이어 id', db_index=True)
     red_player = models.IntegerField('레드 플레이어 id', db_index=True)
     blue_score = models.IntegerField('블루 점수')
     red_score = models.IntegerField('레드 점수')
     is_single = models.BooleanField('싱글플레이 여부', db_index=True)
-    blue_rating_delta = models.IntegerField('블루 점수 변동')
-    red_rating_delta = models.IntegerField('레드 점수 변동')
+    blue_rating_old = models.FloatField('블루 이전 레이팅', default=0.)
+    red_rating_old = models.FloatField('레드 이전 레이팅', default=0.)
+    blue_rating_delta = models.FloatField('블루 점수 변동')
+    red_rating_delta = models.FloatField('레드 점수 변동')
 
     @property
     def blue_name(self):
@@ -61,3 +71,6 @@ class Result(models.Model):
         else:
             player = DoublesPlayer.objects.get(id=self.red_player)
             return player.name
+
+    def __unicode__(self):
+        return 'play date : {0}'.format(self.play_date)

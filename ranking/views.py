@@ -9,6 +9,7 @@ from django.contrib.auth.decorators import user_passes_test
 from django.db.models import Q
 import os
 from math import pow
+from datetime import datetime
 
 
 from .models import Player, DoublesPlayer, Result
@@ -62,16 +63,19 @@ def regist_single(request):
         blue_player = Player.objects.get(id=int(post['blue_player']))
         red_player = Player.objects.get(id=int(post['red_player']))
 
-        blue_new_rating = get_new_rating(blue_player, red_player, blue_score > red_score)
-        red_new_rating = get_new_rating(red_player, blue_player, red_score > blue_score)
+        blue_new_rating = get_new_rating(blue_player, red_player, blue_score)
+        red_new_rating = get_new_rating(red_player, blue_player, red_score)
 
         # 경기 기록
         r = Result.objects.create(
+            play_date=datetime.now(),
             blue_player=blue_player.id,
             red_player=red_player.id,
             blue_score=blue_score,
             red_score=red_score,
             is_single=True,
+            blue_rating_old=blue_player.rating,
+            red_rating_old=red_player.rating,
             blue_rating_delta=(blue_new_rating - blue_player.rating),
             red_rating_delta=(red_new_rating - red_player.rating))
 
@@ -126,16 +130,19 @@ def regist_double(request):
         blue_player = get_double_player(int(post['blue_player_1']), int(post['blue_player_2']))
         red_player = get_double_player(int(post['red_player_1']), int(post['red_player_2']))
 
-        blue_new_rating = get_new_rating(blue_player, red_player, blue_score > red_score)
-        red_new_rating = get_new_rating(red_player, blue_player, red_score > blue_score)
+        blue_new_rating = get_new_rating(blue_player, red_player, blue_score)
+        red_new_rating = get_new_rating(red_player, blue_player, red_score)
 
         # 경기 기록
         r = Result.objects.create(
+            play_date=datetime.now(),
             blue_player=blue_player.id,
             red_player=red_player.id,
             blue_score=blue_score,
             red_score=red_score,
             is_single=False,
+            blue_rating_old=blue_player.rating,
+            red_rating_old=red_player.rating,
             blue_rating_delta=(blue_new_rating - blue_player.rating),
             red_rating_delta=(red_new_rating - red_player.rating))
 
