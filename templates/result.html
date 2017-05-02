@@ -34,7 +34,7 @@
             </tr>
             {% for result in doubles %}
                 <tr>
-                    <td>{{ result.play_date }}</td>
+                    <td>{{ result.play_date | date:"Y-m-d" }}</td>
                     <td><label style="background:blue">&nbsp;&nbsp;</label> {{ result.blue_name }}</td>
                     <td>{{ result.blue_score }} : {{ result.red_score }}</td>
                     <td><label style="background:red">&nbsp;&nbsp;</label> {{ result.red_name }}</td>
