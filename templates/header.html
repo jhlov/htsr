@@ -1,9 +1,46 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block header %}
+   
+ <nav class="nav has-shadow">
+	<div class="nav-left">
+		<a class="nav-item hz-logo" href="{% url 'index' %}"> 
+		</a>
+		<a class="nav-item is-tab is-hidden-mobile" v-bind:class="{'is-active': pathname == '/ranking'}" href="{% url 'ranking' %}">ranking</a>
+		<a class="nav-item is-tab is-hidden-mobile" v-bind:class="{'is-active': pathname == '/result'}" href="{% url 'result' %}">result</a>
+		<a class="nav-item is-tab is-hidden-mobile" href="#">board</a>
+		<a class="nav-item is-tab is-hidden-mobile" v-bind:class="{'is-active': pathname == '/video'}" href="{% url 'video' %}">video</a>
+	</div>
+	<input type="checkbox" id="nav-toggle-state" name="nav-toggle-state">
+	<label for="nav-toggle-state">
+		<span class="nav-toggle">
+			<span></span>
+			<span></span>
+			<span></span>
+		</span>
+	</label>
+	<div class="nav-right nav-menu">
+		<a class="nav-item is-tab is-hidden-tablet" v-bind:class="{'is-active': pathname == '/ranking'}" href="{% url 'ranking' %}">ranking</a>
+		<a class="nav-item is-tab is-hidden-tablet" v-bind:class="{'is-active': pathname == '/result'}" href="{% url 'result' %}">result</a>
+		<a class="nav-item is-tab is-hidden-tablet" href="#">board</a>
+		<a class="nav-item is-tab is-hidden-tablet" v-bind:class="{'is-active': pathname == '/video'}" href="{% url 'video' %}">video</a>
+<!--
+		<a class="nav-item is-tab">
+			<figure class="image is-16x16" style="margin-right: 8px;">
+				<img src="http://bulma.io/images/jgthms.png">
+			</figure>
+			Profile
+		</a>
+-->
+		<a href="{% url 'regist' %}" class="nav-item is-tab" v-bind:class="{'is-active': pathname == '/regist'}">new match</a>
+	</div>
+</nav>
+   
+   
+<!--
     <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="container-fluid"> 
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                     <span class="sr-only">Toggle navigation</span>
@@ -11,10 +48,9 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{% url 'index' %}">HTSR</a>
+                <a class="navbar-brand hz-logo" href="{% url 'index' %}"></a>
             </div>
-
-            <!-- Collect the nav links, forms, and "{% url 'ranking' %}"other content for toggling -->
+ 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li><a href="{% url 'ranking' %}">Ranking</a></li>
@@ -26,9 +62,8 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="{% url 'regist' %}">#</a></li>
                 </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container-fluid -->
+            </div> 
+        </div> 
     </nav>
+-->
 {% endblock %}

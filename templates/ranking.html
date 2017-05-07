@@ -2,43 +2,46 @@
 
 {% load humanize %}
 
-{% block content %}
-
-    <br>
-    <div class="table-responsive" style="max-width: 600px; margin: 0 auto;">
-        <h2>Singles</h2>
-        <table class="table table-striped">
-            <tr>
-                <td>순위</td>
-                <td>이름</td>
-                <td>승</td>
-                <td>패</td>
-                <td>Rating</td>
-            </tr>
-
-            {% for player in singles %}
-                <tr>
-                    <td>{{ forloop.counter }}</td>
-                    <td>{{ player.name }}</td>
-                    <td>{{ player.win }}</td>
-                    <td>{{ player.lose }}</td>
-                    <td>{{ player.rating_int|intcomma }}</td>
-                </tr>
-            {% endfor %}
+{% block content %} 
+    <div style="max-width: 600px; margin-top:32px; margin-left:auto;margin-right:auto;">
+        <h1 class="title">Single</h1>
+        <table class="table is-striped">
+					<thead>
+						<tr>
+							<th>순위</th>
+							<th>이름</th>
+							<th>승</th>
+							<th>패</th>
+							<th>Rating</th>
+						</tr>
+					</thead>
+					<tbody>
+							{% for player in singles %}
+									<tr>
+											<td>{{ forloop.counter }}</td>
+											<td>{{ player.name }}</td>
+											<td>{{ player.win }}</td>
+											<td>{{ player.lose }}</td>
+											<td>{{ player.rating_int|intcomma }}</td>
+									</tr>
+							{% endfor %}
+					</tbody>
         </table>
     </div>
-
-    <br>
-    <div class="table-responsive" style="max-width: 600px; margin: 0 auto;">
-        <h2>Doubles</h2>
-        <table class="table table-striped">
-            <tr>
-                <td>순위</td>
-                <td>이름</td>
-                <td>승</td>
-                <td>패</td>
-                <td>Rating</td>
-            </tr>
+    
+    <div style="max-width: 600px; margin-top:32px; margin-left:auto;margin-right:auto;">
+        <h1 class="title">Double</h1>
+        <table class="table is-striped">
+					<thead>
+						<tr>
+							<th>순위</th>
+							<th>이름</th>
+							<th>승</th>
+							<th>패</th>
+							<th>Rating</th>
+						</tr>
+					</thead>
+					<tbody>
             {% for player in doubles %}
                 <tr>
                     <td>{{ forloop.counter }}</td>
@@ -48,6 +51,7 @@
                     <td>{{ player.rating_int|intcomma }}</td>
                 </tr>
             {% endfor %}
+					</tbody>
         </table>
     </div>
 

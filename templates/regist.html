@@ -1,88 +1,151 @@
 {% extends 'header.html' %}
 
 {% block content %}
-    <br>
 
-    <div style="max-width: 600px; margin: 0 auto;">
+    <div style="max-width: 600px; margin-top:32px; margin-left:auto;margin-right:auto;"> 
+			<h1 class="title">Single</h1>
+			<form action="{% url 'regist_single' %}" method="post">
+					{% csrf_token %}
+					<div class="columns is-mobile">
 
-        <h2>Singles</h2>
-        <form class="form-inline" action="{% url 'regist_single' %}" method="post">
-            {% csrf_token %}
+						<div class="column">
+							<div class="field has-addons has-addons-centered">
+								<p class="control">
+									<span class="select is-info">
+										<select id="blue_player" name="blue_player">
+												{% for player in players %}
+														<option value="{{ player.id }}">{{ player.name }}</option>
+												{% endfor %}
+										</select>
+									</span>
+								</p>
+								<p class="control">
+									<span class="select is-info">
+										<select id="blue_score" name="blue_score">
+												{% for i in range %}
+														<option value="{{ i }}">{{ i }}</option>
+												{% endfor %}
+										</select>
+									</span>
+								</p>
+							</div>
+						</div>
+						
+						<div class="column versus"><span>VS</span></div>
+						
+						<div class="column">
+							<div class="field has-addons has-addons-centered">
+								<p class="control">
+									<span class="select is-danger">
+										<select id="red_score" name="red_score">
+												{% for i in range %}
+														<option value="{{ i }}">{{ i }}</option>
+												{% endfor %}
+										</select>
+									</span>
+								</p>
+								<p class="control">
+									<span class="select is-danger">
+										<select id="red_player" name="red_player">
+												{% for player in players %}
+														<option value="{{ player.id }}">{{ player.name }}</option>
+												{% endfor %}
+										</select>
+									</span>
+								</p>
+							</div> 
+						</div>
 
-            <div class="form-group">
-                <label style="background:blue">&nbsp;&nbsp;</label>
-                <select class="form-control" id="blue_player" name="blue_player">
-                    {% for player in players %}
-                        <option value="{{ player.id }}">{{ player.name }}</option>
-                    {% endfor %}
-                </select>
-                <select class="form-control" id="blue_score" name="blue_score">
-                    {% for i in range %}
-                        <option value="{{ i }}">{{ i }}</option>
-                    {% endfor %}
-                </select>
-                :
-                <select class="form-control" id="red_score" name="red_score">
-                    {% for i in range %}
-                        <option value="{{ i }}">{{ i }}</option>
-                    {% endfor %}
-                </select>
-                <select class="form-control" id="red_player" name="red_player">
-                    {% for player in players %}
-                        <option value="{{ player.id }}">{{ player.name }}</option>
-                    {% endfor %}
-                </select>
-                <label style="background:red">&nbsp;&nbsp;</label>
-                <button type="submit" class="btn btn-default">등록</button>
-            </div>
+						<div class="column">
+							<button class="button is-primary">등록</button>
+						</div>
+					</div>
 
-
-
-        </form>
-
-        <br>
-        <h2>Doubles</h2>
-        <form class="form-inline" action="{% url 'regist_double' %}" method="post">
-            {% csrf_token %}
-            <div class="form-group">
-                <label style="background:blue">&nbsp;&nbsp;</label>
-                <select class="form-control" id="blue_player_1" name="blue_player_1">
-                    {% for player in players %}
-                        <option value="{{ player.id }}">{{ player.name }}</option>
-                    {% endfor %}
-                </select>
-                <select class="form-control" id="blue_player_2" name="blue_player_2">
-                    {% for player in players %}
-                        <option value="{{ player.id }}">{{ player.name }}</option>
-                    {% endfor %}
-                </select>
-                <select class="form-control" id="blue_score" name="blue_score">
-                    {% for i in range %}
-                        <option value="{{ i }}">{{ i }}</option>
-                    {% endfor %}
-                </select>
-                :
-                <select class="form-control" id="red_score" name="red_score">
-                    {% for i in range %}
-                        <option value="{{ i }}">{{ i }}</option>
-                    {% endfor %}
-                </select>
-                <select class="form-control" id="red_player_1" name="red_player_1">
-                    {% for player in players %}
-                        <option value="{{ player.id }}">{{ player.name }}</option>
-                    {% endfor %}
-                </select>
-                <select class="form-control" id="red_player_2" name="red_player_2">
-                    {% for player in players %}
-                        <option value="{{ player.id }}">{{ player.name }}</option>
-                    {% endfor %}
-                </select>
-                <label style="background:red">&nbsp;&nbsp;</label>
-                <button type="submit" class="btn btn-default">등록</button>
-            </div>
-        </form>
+			</form>
 
     </div>
+
+    <div style="max-width: 600px; margin-top:32px; margin-left:auto;margin-right:auto;"> 
+			<h1 class="title">Double</h1>
+        <form action="{% url 'regist_double' %}" method="post">
+					{% csrf_token %}
+					<div class="columns is-mobile">
+
+						<div class="column">
+							<div class="field has-addons has-addons-centered">
+								<p class="control">
+									<span class="select is-info">
+										<select id="blue_player_1" name="blue_player_1">
+												{% for player in players %}
+														<option value="{{ player.id }}">{{ player.name }}</option>
+												{% endfor %}
+										</select>
+									</span>
+								</p>
+								<p class="control">
+									<span class="select is-info">
+										<select id="blue_player_2" name="blue_player_2">
+												{% for player in players %}
+														<option value="{{ player.id }}">{{ player.name }}</option>
+												{% endfor %}
+										</select>
+									</span>
+								</p>
+								<p class="control">
+									<span class="select is-info">
+										<select id="blue_score" name="blue_score">
+												{% for i in range %}
+														<option value="{{ i }}">{{ i }}</option>
+												{% endfor %}
+										</select>
+									</span>
+								</p>
+							</div>
+						</div>
+						
+						<div class="column versus"><span>VS</span></div>
+
+						<div class="column">
+							<div class="field has-addons has-addons-centered">
+								<p class="control">
+									<span class="select is-danger">
+										<select id="red_score" name="red_score">
+												{% for i in range %}
+														<option value="{{ i }}">{{ i }}</option>
+												{% endfor %}
+										</select>
+									</span>
+								</p>
+								<p class="control">
+									<span class="select is-danger">
+										<select id="red_player_1" name="red_player_1">
+												{% for player in players %}
+														<option value="{{ player.id }}">{{ player.name }}</option>
+												{% endfor %}
+										</select>
+									</span>
+								</p>
+								<p class="control">
+									<span class="select is-danger">
+										<select id="red_player_2" name="red_player_2">
+												{% for player in players %}
+														<option value="{{ player.id }}">{{ player.name }}</option>
+												{% endfor %}
+										</select>
+									</span>
+								</p>
+							</div> 
+						</div>
+
+						<div class="column">
+							<button class="button is-primary">등록</button>
+						</div>
+					</div>
+
+			</form>
+
+    </div>
+
 {% endblock %}
 
 
