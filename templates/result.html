@@ -17,9 +17,9 @@
             {% for result in singles %}
                 <tr>
                     <td>{{ result.play_date | date:"Y-m-d" }}</td>
-                    <td class="hero is-primary">{{ result.blue_name }}</td>
+                    <td><label style="background:blue">&nbsp;&nbsp;</label> {{ result.blue_name }}</td>
                     <td>{{ result.blue_score }} : {{ result.red_score }}</td>
-                    <td class="hero is-danger">{{ result.red_name }}</td>
+                    <td><label style="background:red">&nbsp;&nbsp;</label> {{ result.red_name }}</td>
                 </tr>
             {% endfor %}
 					</tbody>
@@ -41,9 +41,9 @@
             {% for result in doubles %}
                 <tr>
                     <td>{{ result.play_date | date:"Y-m-d" }}</td>
-                    <td class="hero is-primary">{{ result.blue_name }}</td>
+                    <td><label style="background:blue">&nbsp;&nbsp;</label> {{ result.blue_name }}</td>
                     <td>{{ result.blue_score }} : {{ result.red_score }}</td>
-                    <td class="hero is-danger">{{ result.red_name }}</td>
+                    <td><label style="background:red">&nbsp;&nbsp;</label> {{ result.red_name }}</td>
                 </tr>
             {% endfor %}
 					</tbody>
